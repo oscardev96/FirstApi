@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const Order = require("../models/order");
-router.get("/", async (req, res, next) => {
+const checkAuth = require("../middleware/checkAuth");
+router.get("/", checkAuth, async (req, res, next) => {
   try {
     let listOrder = await Order.find();
     res.status(200).json(listOrder);

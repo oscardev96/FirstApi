@@ -5,8 +5,12 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const productRoutes = require("./api/routes/products");
 const orderRoutes = require("./api/routes/orders");
+const userRoutes = require("./api/routes/user");
+const authRouters = require("./api/routes/auth");
+const { static } = require("express");
 
 app.use(morgan("dev"));
+app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 //set header
@@ -33,6 +37,9 @@ mongoose.connect(
 //  ROUTERS
 app.use("/products", productRoutes);
 app.use("/orders", orderRoutes);
+app.use("/user", userRoutes);
+app.use("/auth", authRouters);
+
 app.use((req, res, next) => {
   let error = new Error("Not Found");
   error.status = 404;

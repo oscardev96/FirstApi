@@ -2,14 +2,16 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const Product = require("../models/product");
-router.get("/", async (req, res, next) => {
+const checkAuth = require("../middleware/checkAuth");
+const checkAdmin = require("../middleware/checkAdmin");
+router.get("/", checkAuth, async (req, res, next) => {
   try {
     let products = await Product.find();
-    res.status(200).json(products);
+    res.status(200).json({ products });
   } catch (error) {
     res.status(500).json({
       error: error,
-      message: " nor found",
+      message: " not found",
     });
   }
   // Product.find()
