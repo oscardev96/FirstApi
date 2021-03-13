@@ -22,11 +22,12 @@ router.post("/login", async (req, res, next) => {
     const token = jwt.sign({ id: user._id }, "secret", {
       expiresIn: "5 days",
     });
+
     return res.status(200).json({
       token: token,
     });
   } catch (error) {
-    return req.status(500).json({
+    return res.status(500).json({
       error: error,
     });
   }

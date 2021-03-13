@@ -20,7 +20,7 @@ router.post("/signup", async (req, res) => {
       email,
       name,
       password: hashpassword,
-      avatar,
+      avatar: avatar,
     });
 
     await user.save();
